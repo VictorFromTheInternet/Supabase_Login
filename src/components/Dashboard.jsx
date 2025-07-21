@@ -1,8 +1,11 @@
 import React from 'react'
+import {useEffect, useState} from 'react'
 import {UserAuth} from '../context/AuthContext'
 import {useNavigate} from 'react-router-dom'
 
 function Dashboard() {
+    const [users, setUsers] = useState()    
+    
     const {session, signOutUser} = UserAuth()
     const navigate = useNavigate()
 
@@ -20,19 +23,27 @@ function Dashboard() {
         }
     }
     
+    // fetch dummy data
+    useEffect(()=>{
+        const getDummyData = async()=>{
+            const response = await fetch('https://jsonplaceholder.typicode.com/users')
+            const data = await response.json()
+
+            console.log(data)
+
+            setUsers(data) 
+        }
+        getDummyData()
+
+    },[])
+
     return (
         <div>
         <h1>Dashboard</h1>
         <h2>Welcome, {session?.user?.email}</h2>
+        <button onClick={handleSignOut} >Sign Out</button>
 
-        {/* Psuedo button */}
-        <div>
-            <p 
-                onClick={handleSignOut}
-                className="hover:cursor-pointer border inline-block px-4 py-4 mt-4">
-                Sign Out
-            </p>
-        </div>
+        
         </div>
     )
 }
