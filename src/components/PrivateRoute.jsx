@@ -5,7 +5,7 @@ import {Navigate} from 'react-router-dom'
 function PrivateRoute({children}) {
     const {session} = UserAuth()
 
-    if(session){
+    if(session === undefined){
         return <p>Loading...</p>
     }
 
