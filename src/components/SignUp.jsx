@@ -34,22 +34,31 @@ function SignUp() {
 
     return (
         <div>
-            <form onSubmit={handleSignUp} className="max-w-md m-auto pt-24">
-                <h2 className="font-bold pb-2">Sign up today!</h2>
-                <p className="">
-                    Already have an account? <Link to='/signin'>Sign in!</Link> 
-                </p>
+            {/* nav section */}            
+            <Link to="/">
+                <img src="logo.svg" alt="logo" title="logo" className="fixed top-0 left-0 m-4 cursor-pointer" />
+            </Link>     
+            
+            <div className="h-screen flex flex-col justify-center max-w-md m-auto ">
+                <form onSubmit={handleSignUp} className="">
+                    <h2 className="font-bold pb-2 text-2xl">Sign up today!</h2>
+                    <p className="">
+                        Already have an account? <Link to='/signin' className="text-blue-500">Sign in!</Link> 
+                    </p>
 
-                <div className="flex flex-col py-4">
-                    <input onChange={(e)=>{setEmail(e.target.value)}} required placeholder="Email" type="email" name="email" id="email" className="p-3 mt-4" />
+                    <div className="flex flex-col py-4">
+                        <input onChange={(e)=>{setEmail(e.target.value)}} required placeholder="Email" type="email" name="email" id="email" 
+                            className="p-3 mt-4 bg-gray-100 rounded-sm" />
 
-                    <input onChange={(e)=>{setPassword(e.target.value)}} required placeholder="Password" type="password" name="password" id="password" className="p-3 mt-4" />
+                        <input onChange={(e)=>{setPassword(e.target.value)}} required placeholder="Password" type="password" name="password" id="password" 
+                            className="p-3 mt-4 bg-gray-100 rounded-sm" />
 
-                    <button type="submit" disabled={loading} className="mt-4">Sign Up</button>
+                        <button type="submit" disabled={loading} className="mt-4 rounded-sm text-blue-500 border-1 border-blue-500 py-2">Sign Up</button>
 
-                    {error && <p className="text-red-600 text-center pt-4">{error}</p>}
-                </div>
-            </form>        
+                        {error && <p className="text-red-600 text-center pt-4">{error}</p>}
+                    </div>
+                </form>     
+            </div>               
         </div>
     )
 }
