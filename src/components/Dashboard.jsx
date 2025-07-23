@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom'
 import { Grid } from 'gridjs-react'
 
 function Dashboard() {
-    const [users, setUsers] = useState()    
+    const [users, setUsers] = useState([])    
     
     const {session, signOutUser} = UserAuth()
     const navigate = useNavigate()
@@ -47,16 +47,15 @@ function Dashboard() {
 
             {/* gridjs */}
             <Grid
-                data={
-                    users &&
-                    users.map(()=>{
-                        
+                data={                    
+                    users.map((elm)=>{
+                        return( [elm.id, elm.name, elm.username, elm.email, elm.phone, elm.website])
                     })
                 }
-                columns={['Name', 'Email']}
+                columns={['ID', 'Name', 'Username', 'Email', 'Phone', 'Website']}
                 search={true}
                 pagination={{
-                    limit: 1,
+                    limit: 5,
                 }}
                 />
         </>
