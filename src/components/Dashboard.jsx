@@ -3,6 +3,8 @@ import {useEffect, useState} from 'react'
 import {UserAuth} from '../context/AuthContext'
 import {useNavigate} from 'react-router-dom'
 
+import { Grid } from 'gridjs-react'
+
 function Dashboard() {
     const [users, setUsers] = useState()    
     
@@ -38,13 +40,26 @@ function Dashboard() {
     },[])
 
     return (
-        <div>
-        <h1>Dashboard</h1>
-        <h2>Welcome, {session?.user?.email}</h2>
-        <button onClick={handleSignOut} >Sign Out</button>
+        <>
+            <h1>Dashboard</h1>
+            <h2>Welcome, {session?.user?.email}</h2>
+            <button onClick={handleSignOut} >Sign Out</button>
 
-        
-        </div>
+            {/* gridjs */}
+            <Grid
+                data={
+                    users &&
+                    users.map(()=>{
+                        
+                    })
+                }
+                columns={['Name', 'Email']}
+                search={true}
+                pagination={{
+                    limit: 1,
+                }}
+                />
+        </>
     )
 }
 
