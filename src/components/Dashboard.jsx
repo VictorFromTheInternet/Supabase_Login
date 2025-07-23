@@ -4,7 +4,7 @@ import {UserAuth} from '../context/AuthContext'
 import {useNavigate, Link} from 'react-router-dom'
 import "gridjs/dist/theme/mermaid.css"
 
-import { Grid } from 'gridjs-react'
+import { Grid, _ } from 'gridjs-react'
 
 function Dashboard() {
     const [users, setUsers] = useState([])    
@@ -29,7 +29,7 @@ function Dashboard() {
     // fetch dummy data
     useEffect(()=>{
         const getDummyData = async()=>{
-            const response = await fetch('https://jsonplaceholder.typicode.com/users')
+            const response = await fetch('https://jsonplaceholder.typicode.com/todos')
             const data = await response.json()
 
             console.log(data)
@@ -40,6 +40,16 @@ function Dashboard() {
 
     },[])
 
+    // edit
+    function handleEdit(){
+        window.alert("Edit")
+    }
+
+    // delete
+    function handleDelete(){
+        window.alert("Delete")
+    }
+
     return (
         <>
             <nav className="flex justify-between fixed top-0 w-lvw items-center">
@@ -47,17 +57,17 @@ function Dashboard() {
                     <img src="logo.svg" alt="logo" title="logo" className="  m-4 cursor-pointer" />
                 </Link>  
 
-                <h1 className=" m-4 right-1/2 text-2xl" >Dashboard</h1>
+                <h1 className=" m-4 right-1/2 text-3xl" >Dashboard</h1>
 
-                <div className=" m-4">
-                    {/* <h2 >
-                        Welcome, {session?.user?.email}
-                    </h2> */}
-                    <button onClick={handleSignOut} 
-                        className="text-blue-500 cursor-pointer py-2 px-6 border-1 border-blue-500 rounded-4xl">
-                            Sign Out
-                    </button>
-                </div>     
+                
+                {/* <h2 >
+                    Welcome, {session?.user?.email}
+                </h2> */}
+                <button onClick={handleSignOut} 
+                    className="text-blue-500 cursor-pointer py-2 px-6 border-1 border-blue-500 rounded-4xl m-4">
+                        Sign Out
+                </button>
+                     
             </nav>                   
 
 
@@ -66,16 +76,36 @@ function Dashboard() {
                 <Grid
                     data={                    
                         users.map((elm)=>{
-                            return( [elm.id, elm.name, elm.username, elm.email, elm.phone, elm.website])
+                            return( [elm.userId, elm.id, elm.title, `${elm.completed? "Yes":"No"}`, _(
+                                <div className="flex justify-around items-center gap-2">
+                                    <button 
+                                    onClick={()=>window.alert("Edit btn clicked")}
+                                    className="text-blue-500 border-1 border-blue-500 py-2 px-4 rounded-sm cursor-pointer" >
+                                        Edit
+                                    </button>
+                                    
+                                    <button 
+                                    onClick={()=>window.alert("Delete btn clicked")}
+                                    className="text-red-500 border-1 border-red-500 py-2 px-4 rounded-sm cursor-pointer">
+                                        Delete
+                                    </button>
+                                </div>
+                            )])
                         })
                     }
-                    columns={['ID', 'Name', 'Username', 'Email', 'Phone', 'Website']}
+                    columns={['User ID', 'Task ID', 'Title', 'Completed', 'Actions']}
                     search={true}
+                    resizable={true}
+                    sortable={true}
                     pagination={{
                         limit: 5,
                     }}
                     />
-            </div>            
+                
+                <p>
+                    Data from: <a href="https://jsonplaceholder.typicode.com/" className="text-blue-500">JSON Placeholder</a>
+                </p>
+            </div>                        
         </>
     )
 }
