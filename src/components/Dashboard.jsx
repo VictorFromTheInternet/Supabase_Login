@@ -96,7 +96,7 @@ function Dashboard() {
                     columns={['User ID', 'Task ID', 'Title', 'Completed', 'Actions']}
                     search={true}
                     resizable={true}
-                    sortable={true}
+                    sort={true}
                     pagination={{
                         limit: 5,
                     }}
