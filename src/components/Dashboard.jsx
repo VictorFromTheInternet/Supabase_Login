@@ -1,7 +1,8 @@
 import React from 'react'
 import {useEffect, useState} from 'react'
 import {UserAuth} from '../context/AuthContext'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
+import "gridjs/dist/theme/mermaid.css"
 
 import { Grid } from 'gridjs-react'
 
@@ -41,23 +42,40 @@ function Dashboard() {
 
     return (
         <>
-            <h1>Dashboard</h1>
-            <h2>Welcome, {session?.user?.email}</h2>
-            <button onClick={handleSignOut} >Sign Out</button>
+            <nav className="flex justify-between fixed top-0 w-lvw items-center">
+                <Link to="/">
+                    <img src="logo.svg" alt="logo" title="logo" className="  m-4 cursor-pointer" />
+                </Link>  
 
-            {/* gridjs */}
-            <Grid
-                data={                    
-                    users.map((elm)=>{
-                        return( [elm.id, elm.name, elm.username, elm.email, elm.phone, elm.website])
-                    })
-                }
-                columns={['ID', 'Name', 'Username', 'Email', 'Phone', 'Website']}
-                search={true}
-                pagination={{
-                    limit: 5,
-                }}
-                />
+                <h1 className=" m-4 right-1/2 text-2xl" >Dashboard</h1>
+
+                <div className=" m-4">
+                    {/* <h2 >
+                        Welcome, {session?.user?.email}
+                    </h2> */}
+                    <button onClick={handleSignOut} 
+                        className="text-blue-500 cursor-pointer py-2 px-6 border-1 border-blue-500 rounded-4xl">
+                            Sign Out
+                    </button>
+                </div>     
+            </nav>                   
+
+
+            <div className="max-w-4xl ml-auto mr-auto pt-24 h-screen">
+                {/* gridjs */}
+                <Grid
+                    data={                    
+                        users.map((elm)=>{
+                            return( [elm.id, elm.name, elm.username, elm.email, elm.phone, elm.website])
+                        })
+                    }
+                    columns={['ID', 'Name', 'Username', 'Email', 'Phone', 'Website']}
+                    search={true}
+                    pagination={{
+                        limit: 5,
+                    }}
+                    />
+            </div>            
         </>
     )
 }
